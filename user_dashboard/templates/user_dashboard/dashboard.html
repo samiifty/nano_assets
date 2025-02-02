@@ -1,0 +1,98 @@
+{% extends "user_dashboard/base.html" %}
+
+{% block content %}
+<div class="container">
+    <h1>Welcome, {{ user.username }}</h1>
+    <p>Your total investment: <strong>${{ portfolio.total_investment }}</strong></p>
+
+    <!-- ✅ Withdraw Funds Button -->
+    <a href="{% url 'request_withdrawal' %}" class="btn btn-danger mb-3">Withdraw Funds</a>
+
+    <!-- ✅ Available Assets Section -->
+    <h3>Available Assets</h3>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Asset</th>
+                <th>Description</th>
+                <th>Price</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for asset in assets %}
+            <tr>
+                <td>{{ asset.name }}</td>
+                <td>{{ asset.description }}</td>
+                <td>${{ asset.price }}</td>
+                <td>
+                    <form action="{% url 'invest' asset.id %}" method="POST">
+                        {% csrf_token %}
+                        <input type="number" name="amount" placeholder="Enter amount" required>
+                        <button type="submit" class="btn btn-warning">Invest</button>
+                    </form>
+                </td>
+            </tr>
+            {% empty %}
+            <tr><td colspan="4">No assets available.</td></tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <!-- ✅ Investment History Section -->
+    <h3>My Investment History</h3>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Asset</th>
+                <th>Amount</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for investment in investments %}
+            <tr>
+                <td>{{ investment.asset.name }}</td>
+                <td>${{ investment.amount }}</td>
+                <td>
+                    {% if investment.status == "pending" %}
+                        <span class="badge bg-warning">Pending</span>
+                    {% elif investment.status == "approved" %}
+                        <span class="badge bg-success">Approved</span>
+                    {% else %}
+                        <span class="badge bg-danger">Rejected</span>
+                    {% endif %}
+                </td>
+            </tr>
+            {% empty %}
+            <tr><td colspan="3">No investments yet.</td></tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <!-- ✅ Approved Investments Section -->
+    <h3>My Approved Investments</h3>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Asset</th>
+                <th>Amount</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for investment in investments %}
+                {% if investment.status == "approved" %}
+                <tr>
+                    <td>{{ investment.asset.name }}</td>
+                    <td>${{ investment.amount }}</td>
+                    <td><span class="badge bg-success">Approved</span></td>
+                </tr>
+                {% endif %}
+            {% empty %}
+            <tr><td colspan="3">No approved investments yet.</td></tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

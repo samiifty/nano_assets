@@ -1,0 +1,30 @@
+<h3>Transaction History</h3>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Date</th>
+            <th>Type</th>
+            <th>Amount</th>
+            <th>Status</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for investment in investments %}
+        <tr>
+            <td>{{ investment.created_at }}</td>
+            <td>Investment</td>
+            <td>${{ investment.amount }}</td>
+            <td>{{ investment.status }}</td>
+        </tr>
+        {% endfor %}
+
+        {% for withdrawal in withdrawals %}
+        <tr>
+            <td>{{ withdrawal.created_at }}</td>
+            <td>Withdrawal</td>
+            <td>${{ withdrawal.amount }}</td>
+            <td>{{ withdrawal.status }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>

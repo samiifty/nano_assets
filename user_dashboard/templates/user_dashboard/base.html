@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>{% block title %}Nano Assets{% endblock %}</title>
+    <link rel="stylesheet" type="text/css" href="/static/styles.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-white border-bottom px-4">
+        <a class="navbar-brand" href="#">
+            <img src="/static/logo.png" alt="Nano Assets" height="30">
+        </a>
+        <div class="collapse navbar-collapse">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item"><a class="nav-link active" href="{% url 'landing_page' %}">Home</a></li>
+                <li class="nav-item"><a class="nav-link" href="#">All Assets</a></li>
+                <li class="nav-item"><a class="nav-link" href="#">Favourites</a></li>
+                <li class="nav-item"><a class="nav-link" href="#">My Portfolio</a></li>
+                <li class="nav-item"><a class="nav-link" href="#">Transactions</a></li>
+            </ul>
+        </div>
+        <div class="d-flex">
+            <button class="btn btn-outline-dark me-2"><i class="bi bi-bell"></i></button>
+            <a class="btn btn-dark" href="{% url 'login' %}">Login</a>
+
+        </div>
+    </nav>
+
+    <!-- Page Content -->
+    <div class="container mt-4">
+        {% block content %}{% endblock %}
+    </div>
+
+</body>
+</html>

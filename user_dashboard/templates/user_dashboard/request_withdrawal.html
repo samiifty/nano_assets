@@ -1,0 +1,17 @@
+{% extends "user_dashboard/base.html" %}
+
+{% block content %}
+<div class="container">
+    <h2>Withdraw Funds</h2>
+    <p>Your current balance: <strong>${{ portfolio.total_investment }}</strong></p>
+
+    <form method="POST">
+        {% csrf_token %}
+        <label for="amount">Withdrawal Amount:</label>
+        <input type="number" name="amount" class="form-control" min="1" required>
+        <button type="submit" class="btn btn-warning mt-3">Request Withdrawal</button>
+    </form>
+
+    <a href="{% url 'dashboard' %}" class="btn btn-secondary mt-3">Back to Dashboard</a>
+</div>
+{% endblock %}

@@ -1,0 +1,12 @@
+{% extends "user_dashboard/base.html" %}
+
+{% block content %}
+<div class="text-center my-5">
+    <h1 class="fw-bold text-warning">NANO ASSETS</h1>
+    <h2 class="text-dark">Own a Piece of Great Assets</h2>
+    <p>Start building your portfolio with as little as BDT 100.<br>
+    Invest in real estate, businesses, and working capital opportunities.</p>
+    <a href="{% url 'signup' %}" class="btn btn-warning">Sign Up</a>
+    <a href="{% url 'login' %}" class="btn btn-outline-dark">Login</a>
+</div>
+{% endblock %}

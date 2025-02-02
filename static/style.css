@@ -1,0 +1,18 @@
+body {
+    font-family: Arial, sans-serif;
+}
+
+.navbar-nav .nav-link {
+    font-size: 18px;
+    padding: 10px;
+}
+
+.btn-warning {
+    background-color: gold;
+    border: none;
+}
+
+h1 {
+    font-size: 3rem;
+    font-weight: bold;
+}

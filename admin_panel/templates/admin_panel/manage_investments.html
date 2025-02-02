@@ -1,0 +1,42 @@
+{% extends "admin_panel/base.html" %}
+
+{% block content %}
+<h2>Manage Investments</h2>
+<table class="table">
+    <thead>
+        <tr>
+            <th>User</th>
+            <th>Asset</th>
+            <th>Amount</th>
+            <th>Status</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for investment in investments %}
+        <tr>
+            <td>{{ investment.user.username }}</td>
+            <td>{{ investment.asset.name }}</td>
+            <td>${{ investment.amount }}</td>
+            <td>
+                {% if investment.status == "pending" %}
+                    <span class="badge bg-warning">Pending</span>
+                {% elif investment.status == "approved" %}
+                    <span class="badge bg-success">Approved</span>
+                {% else %}
+                    <span class="badge bg-danger">Rejected</span>
+                {% endif %}
+            </td>
+            <td>
+                {% if investment.status == "pending" %}
+                    <a href="{% url 'approve_investment' investment.id %}" class="btn btn-success">Approve</a>
+                    <a href="{% url 'reject_investment' investment.id %}" class="btn btn-danger">Reject</a>
+                {% else %}
+                    <button class="btn btn-secondary" disabled>Processed</button>
+                {% endif %}
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}
